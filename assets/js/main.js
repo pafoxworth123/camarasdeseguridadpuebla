@@ -69,7 +69,8 @@
         key: "colonia",
         type: "text",
         question: "¿En qué colonia o zona de Puebla está la propiedad?",
-        placeholder: "Ej. Las Ánimas, Angelópolis, La Paz…"
+        placeholder: "Ej. Las Ánimas, Angelópolis, La Paz… (opcional)",
+        optional: true
       },
       {
         key: "presupuesto",
@@ -123,7 +124,10 @@
       if (step.type === "text") {
         html += '<p class="qw-question">' + step.question + "</p>";
         html += '<div class="qw-fields"><input type="text" class="qw-input" placeholder="' + (step.placeholder || "") + '" value="' + (answers[step.key] || "").replace(/"/g, "&quot;") + '"></div>';
-        html += '<div class="qw-actions"><button type="button" class="qw-back" data-back' + (current === 0 ? " disabled" : "") + '>← Atrás</button><button type="button" class="btn btn-primary" data-next>Siguiente</button></div>';
+        if (step.optional) {
+          html += '<p class="qw-hint">No es necesario si prefieres platicarlo directo por WhatsApp.</p>';
+        }
+        html += '<div class="qw-actions"><button type="button" class="qw-back" data-back' + (current === 0 ? " disabled" : "") + '>← Atrás</button><button type="button" class="btn btn-primary" data-next>' + (step.optional ? "Siguiente / omitir" : "Siguiente") + '</button></div>';
       }
       if (step.type === "contact") {
         html += '<p class="qw-question">' + step.question + "</p>";
@@ -190,15 +194,34 @@
         });
       }
     }
-    function sendQuote() {
+    function buildMessage() {
       var lines = ["Hola, soy " + answers.nombre + ". Me gustaría una cotización:"];
       Object.keys(LABELS).forEach(function (key) {
         if (answers[key]) lines.push(LABELS[key] + ": " + answers[key]);
       });
       lines.push("Mi teléfono: " + answers.telefono);
-      var text = encodeURIComponent(lines.join("\n"));
+      return lines.join("\n");
+    }
+    function sendQuote() {
+      var text = encodeURIComponent(buildMessage());
       window.open("https://wa.me/522216498364?text=" + text, "_blank", "noopener");
       renderDone();
+    }
+    function copyToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+      }
+      // Fallback for older browsers / non-HTTPS contexts.
+      var helper = document.createElement("textarea");
+      helper.value = text;
+      helper.style.position = "fixed";
+      helper.style.opacity = "0";
+      document.body.appendChild(helper);
+      helper.focus();
+      helper.select();
+      try { document.execCommand("copy"); } catch (e) { /* ignored */ }
+      document.body.removeChild(helper);
+      return Promise.resolve();
     }
     function renderDone() {
       var summaryLines = Object.keys(LABELS)
@@ -209,14 +232,21 @@
         '<div class="qw-done">' +
         '<div class="icon-ok"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>' +
         "<h3>Se abrió WhatsApp con tu solicitud</h3>" +
-        "<p>Si no se abrió automáticamente, escríbenos directo al 221 649 83 64. Este es el resumen que preparamos:</p>" +
+        "<p>Si no se abrió automáticamente (por ejemplo, en computadora sin WhatsApp Web abierto), copia el mensaje y envíalo tú mismo al 221 649 83 64. Este es el resumen que preparamos:</p>" +
         '<div class="qw-summary">' + summaryLines + "</div>" +
-        '<button type="button" class="btn btn-outline" data-restart>Llenar otra cotización</button>' +
+        '<div class="qw-copy-row"><button type="button" class="btn btn-outline" data-copy>Copiar mensaje</button><button type="button" class="btn btn-outline" data-restart>Llenar otra cotización</button></div>' +
+        '<p class="qw-copied-msg" data-copied-msg style="display:none;">Mensaje copiado. Pégalo en WhatsApp, SMS o correo.</p>' +
         "</div>";
       wizardRoot.querySelector("[data-restart]").addEventListener("click", function () {
         current = 0;
         answers = {};
         render();
+      });
+      wizardRoot.querySelector("[data-copy]").addEventListener("click", function () {
+        var msg = wizardRoot.querySelector("[data-copied-msg]");
+        copyToClipboard(buildMessage()).then(function () {
+          msg.style.display = "block";
+        });
       });
     }
     render();

@@ -122,9 +122,52 @@
 
       <div class="form-card">
         <h3 style="font-size:20px;margin-bottom:6px;">Pide tu cotización</h3>
-        <p style="color:var(--steel-300);font-size:14.5px;margin-bottom:22px;">Responde unas preguntas rápidas y armamos tu mensaje de WhatsApp automáticamente, listo para enviar.</p>
+        <p style="color:var(--steel-300);font-size:14.5px;margin-bottom:22px;">¿Prefieres ir directo? Llama o escríbenos, sin llenar nada.</p>
+
+        <div class="direct-contact-row">
+          <a class="btn btn-whatsapp" href="https://wa.me/522216498364?text=Hola%2C%20quisiera%20una%20cotizaci%C3%B3n%20para%20instalar%20c%C3%A1maras%20de%20seguridad." target="_blank" rel="noopener">
+            <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.02 3C9.4 3 4 8.35 4 14.93c0 2.3.65 4.44 1.77 6.27L4 29l8.02-1.7a12.9 12.9 0 0 0 4 .63c6.62 0 12.02-5.35 12.02-11.93S22.64 3 16.02 3z"/></svg>
+            WhatsApp directo
+          </a>
+          <a class="btn btn-outline" href="tel:+522216498364">📞 Llamar: 221 649 83 64</a>
+        </div>
+
+        <!-- Fallback para navegadores sin JavaScript: el asistente de abajo
+             no puede dibujarse sin JS, así que estos enlaces directos
+             garantizan que siempre haya una forma de contactar. -->
+        <noscript>
+          <div class="direct-contact-row" style="border-top:none;padding-top:0;">
+            <a class="btn btn-outline" href="mailto:contacto@camarasdeseguridadpuebla.com">Enviar correo</a>
+          </div>
+          <p class="no-js-note">Tu navegador tiene JavaScript desactivado, así que el formulario paso a paso no está disponible aquí — usa WhatsApp, llamada o correo.</p>
+        </noscript>
+
+        <p style="color:var(--steel-300);font-size:14.5px;margin:22px 0 14px;">O si prefieres, responde unas preguntas rápidas y armamos tu mensaje automáticamente:</p>
         <div class="quote-wizard" id="quote-wizard"></div>
-        <p class="form-note">Nada se guarda en un servidor: solo arma un mensaje de WhatsApp con tus respuestas. Si prefieres, también puedes llamarnos directamente al 221 649 83 64.</p>
+        <p class="form-note">Nada se guarda en un servidor: solo arma un mensaje de WhatsApp con tus respuestas.</p>
+
+        <div class="wa-qr-block">
+          <img src="assets/img/whatsapp-qr.png" alt="Código QR para abrir WhatsApp" width="104" height="104" loading="lazy">
+          <div>
+            <h4>¿Estás en la computadora?</h4>
+            <p>Escanea este código con tu celular para continuar la conversación por WhatsApp desde tu teléfono.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap" style="padding:0;margin-top:56px;">
+      <h2 style="font-size:clamp(22px,2.8vw,28px);">Horario de atención y zona de servicio</h2>
+      <div class="hours-grid">
+        <div class="box">
+          <h4>Horario</h4>
+          <!-- TODO (Paul): confirma tu horario real antes de publicar; este es un marcador de posición. -->
+          <p>Lunes a sábado, horario por confirmar. Escríbenos por WhatsApp y te respondemos según disponibilidad.</p>
+        </div>
+        <div class="box">
+          <h4>Zona de servicio</h4>
+          <p>Las Ánimas y toda la zona metropolitana de Puebla.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -184,6 +227,15 @@
 <a class="wa-float" href="https://wa.me/522216498364?text=Hola%2C%20quisiera%20informaci%C3%B3n%20sobre%20instalaci%C3%B3n%20de%20c%C3%A1maras%20de%20seguridad." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
   <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.02 3C9.4 3 4 8.35 4 14.93c0 2.3.65 4.44 1.77 6.27L4 29l8.02-1.7a12.9 12.9 0 0 0 4 .63c6.62 0 12.02-5.35 12.02-11.93S22.64 3 16.02 3zm0 21.63c-1.28 0-2.53-.24-3.7-.7l-.27-.1-4.76 1.01 1.02-4.55-.18-.28a9.62 9.62 0 0 1-1.5-5.08c0-5.34 4.4-9.68 9.83-9.68 2.63 0 5.1 1 6.96 2.83a9.5 9.5 0 0 1 2.87 6.85c0 5.34-4.4 9.7-9.83 9.7zm5.4-7.28c-.3-.15-1.76-.86-2.03-.96-.27-.1-.47-.15-.67.15s-.77.96-.94 1.16-.35.22-.65.07a7.9 7.9 0 0 1-2.32-1.43 8.68 8.68 0 0 1-1.6-2c-.17-.29 0-.44.13-.6.13-.14.3-.35.44-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.79.37-.27.29-1.04 1.02-1.04 2.48s1.06 2.87 1.2 3.07c.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/></svg>
 </a>
+
+<nav class="mobile-cta-bar" aria-label="Contacto rápido">
+  <a class="mcb-whatsapp" href="https://wa.me/522216498364?text=Hola%2C%20quisiera%20informaci%C3%B3n%20sobre%20instalaci%C3%B3n%20de%20c%C3%A1maras%20de%20seguridad." target="_blank" rel="noopener">
+    <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.02 3C9.4 3 4 8.35 4 14.93c0 2.3.65 4.44 1.77 6.27L4 29l8.02-1.7a12.9 12.9 0 0 0 4 .63c6.62 0 12.02-5.35 12.02-11.93S22.64 3 16.02 3z"/></svg>
+    WhatsApp
+  </a>
+  <a class="mcb-llamar" href="tel:+522216498364">📞 Llamar</a>
+  <a class="mcb-cotizar" href="#quote-wizard">Cotizar</a>
+</nav>
 
 <script src="assets/js/main.js"></script>
 <script>document.querySelector('[data-year]').textContent = new Date().getFullYear();</script>
